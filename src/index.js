@@ -16,7 +16,6 @@ import Task from './Task';
 import Manage from './Manage';
 import Test from './Test';
 import Preview from './Preview';
-//import Random from './Random';
 
 
 
@@ -46,7 +45,6 @@ ReactDOM.render(
               <li><NavLink exact activeClassName="activeNav" to="/preview">Preview</NavLink></li>
              
              
-             
           </ul>
         </div>
       </div>
@@ -58,9 +56,7 @@ ReactDOM.render(
       <Route path="/test" component={Test} history={history}/>
       <Route path="/manage" component={Manage} history={history}/>
       <Route path="/preview" component={Preview} history={history}/>
-     
-     
-
+    
       <Route path="/edit/:id" component={Edit}/>
     </div>
   </Router>,

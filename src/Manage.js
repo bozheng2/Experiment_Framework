@@ -30,8 +30,6 @@ import createHistory from 'history/createBrowserHistory'
  const option_id5 = Array.from(Array(count5).keys());
  var selected5 = 0;
  
-
-
  //alert(TrueFalseTasks);
  //alert(MultipleChoiceTasks.length);
 
