@@ -4,7 +4,6 @@ import axios from 'axios';
 import {ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstrap';
 import createHistory from 'history/createBrowserHistory'
 
-
  const TrueFalseTasks =  JSON.parse(localStorage.getItem('TrueFalseTasks')) || [];
  const count1 = (TrueFalseTasks.length);
  const option_id1 = Array.from(Array(count1).keys());
@@ -30,8 +29,6 @@ import createHistory from 'history/createBrowserHistory'
  const option_id5 = Array.from(Array(count5).keys());
  var selected5 = 0;
  
- //alert(TrueFalseTasks);
- //alert(MultipleChoiceTasks.length);
 
 class Manage extends Component {
 
@@ -55,7 +52,6 @@ class Manage extends Component {
             FirstTimeEnters: JSON.parse(localStorage.getItem('FirstTimeEnters')) || [],
             TriggerByConditions: JSON.parse(localStorage.getItem('TriggerByConditions')) || [],
         };
-       //this.saveBasic = this.saveBasic.bind(this)
         this.handleChange = this.handleChange.bind(this);  
         this.submitFirstTimeEnter = this.submitFirstTimeEnter.bind(this); 
         this.submitTriggerByCondition = this.submitTriggerByCondition.bind(this); 
@@ -111,140 +107,6 @@ handleChange(e) {
     window.location.reload();
   }
     
-// saveBasic() {
-//         let newBasic = this.state.newBasic;
-//         newBasic.step1 = this.step1.value;
-//         this.setState({newBasic});
-       
-//         axios.post('/experiments', {basics: this.state.newBasic})
-//         .then(response => {
-//     console.log(response.config.data);
-//   });
-//         console.log(newBasic); 
-//         this.props.history.push('/');
-//     }
- 
- // render() {
- //    if(this.state.display === "firsttimeenter"){
- //            return(
-
- //                    <div className="col-md-6 col-md-offset-3">
-                   
- //                    <label class="mr-sm-2" for="inlineFormCustomSelect"></label>
-                 
-
- //                    <div className="form-inline form-group">
-                    
- //                    <h1> Manage Experiment Workflow </h1> 
- //                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" onChange={this.handleChange}>
- //                    <option value="firsttimeenter">First time enter</option>
- //                    <option value="triggerbycondition">Trigger by condition</option>
- //                    </select>
-
- //                     <h3>Task 1</h3>
- //                    <h3>First time enter</h3>
- //                    </div>
- //                   <div className="form-group">
- //                   <label htmlFor="instruction"> First time instruction </label>
- //                   <textarea 
- //                   ref={(input) => {this.instruction = input}}
- //                   className="form-control" 
- //                   id="step1" 
- //                   placeholder="Enter the first step" />
- //                   </div>
-                   
- //                    <form>
- //                <div class="checkbox">
- //                <label><input type="checkbox" value=""/>Taskset 1</label>
- //                </div>
- //                <div class="checkbox">
- //                <label><input type="checkbox" value=""/>Taskset 2</label>
- //                </div>
- //                <div class="checkbox">
- //                <label><input type="checkbox" value=""/>Taskset 3</label>
- //                </div>
- //                <div class="checkbox">
- //                <label><input type="checkbox" value=""/>Not required</label>
- //                </div>
- //              </form>
- //                    <div>
- //                    <button className="btn btn-info" type="submit" > Save </button>
- //                    </div>
- //                    <div>
- //                    <button className="btn btn-success" type="submit" > Continue to next step </button>
- //                    </div>
- //                </div>
- //                );
- //    }
-
- //    else {
- //        return(
- //             <div className="col-md-6 col-md-offset-3">
- //             <div className="row">
- //                <div className="col-xs-12 col-sm-12">
- //                   <h1> Manage Experiment Workflow </h1> 
- //                    <div className="form-inline form-group">
- //                    </div>
- //                    <div className="form-inline form-group">
- //                    <form class="form-inline">
- //                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0"  onChange={this.handleChange}>
- //                    <option value="firsttimeenter">First time enter</option>
- //                    <option value="triggerbycondition">Trigger by condition</option>
- //                    </select>
- //                    <h3>Task 1</h3>                    
- //                    </form>
- //                    </div>
-
- //                    <div className="form-inline form-group">
- //                    <form class="form-inline">
- //                    <h3>Trigger by location</h3>
- //                    <h4>Location Condition</h4>
- //                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
- //                    <option selected>Not required</option>
- //                    <option value="condition1">Location Condition 1</option>
- //                    <option value="condition2">Location Condition 2</option>
- //                    </select>
- //                    </form>
- //                    </div>
-
- //                    <div className="form-inline form-group">
- //                    <form class="form-inline">
- //                    <h4>Time Condition</h4>
- //                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
- //                    <option selected>Not required</option>
- //                    <option value="condition1">Time Condition 1</option>
- //                    <option value="condition2">Time Condition 2</option>
- //                    <option value="condition2">Time Condition 3</option>
- //                    </select>
- //                    </form>
- //                    </div>
-
- //                    <div className="form-inline form-group">
- //                    <form class="form-inline">
-                    
- //                    <div class="checkbox">
- //                <label><input type="checkbox" value=""/>Taskset 1</label>
- //                </div>
- //                <div class="checkbox">
- //                <label><input type="checkbox" value=""/>Taskset 2</label>
- //                </div>
- //                <div class="checkbox">
- //                <label><input type="checkbox" value=""/>Taskset 3</label>
- //                </div>
-                
- //                    </form>
- //                    </div>
- //                    <button className="btn btn-info" type="submit"> Save </button>
- //                </div>
- //                   <button className="btn btn-success" type="submit" > Continue to next step </button>
- //                </div>         
- //            </div>
-
- //            );
-
- //    }
- //    }
- //    }
 
 render(){
      if(this.state.display === "firsttimeenter"){
@@ -304,15 +166,12 @@ render(){
                     </select>
 
 
-
-
-
                     <div>
-                    <button className="btn btn-info" type="submit"  onClick={this.submitFirstTimeEnter} > Save </button>
+                    <button className="btn btn-success" type="submit"  onClick={this.submitFirstTimeEnter} > Save </button>
                     </div>
 
                     <div>
-                    <button className="btn btn-success" type="submit" onClick={this.continue}> Continue to next step </button>
+                    <button className="btn btn-info" type="submit" onClick={this.continue}> Continue to next step </button>
                     </div>
 
                     
@@ -394,15 +253,12 @@ render(){
                        <option value="notrequired">Not Required</option>
                     </select>
 
-
-
-
                     <div>
-                    <button className="btn btn-info" type="submit" onClick={this.submitTriggerByCondition}  > Save </button>
+                    <button className="btn btn-success" type="submit" onClick={this.submitTriggerByCondition}  > Save </button>
                     </div>
 
                     <div>
-                    <button className="btn btn-success" type="submit" onClick={this.continue} > Continue to next step </button>
+                    <button className="btn btn-info" type="submit" onClick={this.continue} > Continue to next step </button>
                     </div>
 
 
