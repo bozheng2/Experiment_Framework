@@ -9,13 +9,13 @@ import {
 } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './Home';
-import Edit from './Edit';
+//import Edit from './Edit';
 import Basic from './Basic';
 import Task from './Task';
-//import Notificationcondition from './Notificationcondition';
 import Manage from './Manage';
 import Test from './Test';
 import Preview from './Preview';
+
 
 
 
@@ -43,6 +43,7 @@ ReactDOM.render(
               <li><NavLink exact activeClassName="activeNav" to="/test">Notificationcondition</NavLink></li>
               <li><NavLink exact activeClassName="activeNav" to="/manage">Manage</NavLink></li>
               <li><NavLink exact activeClassName="activeNav" to="/preview">Preview</NavLink></li>
+              
              
              
           </ul>
@@ -56,8 +57,8 @@ ReactDOM.render(
       <Route path="/test" component={Test} history={history}/>
       <Route path="/manage" component={Manage} history={history}/>
       <Route path="/preview" component={Preview} history={history}/>
+     
     
-      <Route path="/edit/:id" component={Edit}/>
     </div>
   </Router>,
   document.getElementById('root')

@@ -5,12 +5,32 @@ import axios from 'axios';
 import {ButtonToolbar, DropdownButton, MenuItem, Checkbox} from 'react-bootstrap';
 import { withGoogleMap, GoogleMap, Marker, Rectangle} from "react-google-maps";
 import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager';
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
+import SearchBox from 'react-google-maps/lib/places/SearchBox';
+
+
+const INPUT_STYLE = {
+  boxSizing: `border-box`,
+  MozBoxSizing: `border-box`,
+  border: `1px solid transparent`,
+  width: `240px`,
+  height: `32px`,
+  marginTop: `27px`,
+  padding: `0 12px`,
+  borderRadius: `1px`,
+  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+  fontSize: `14px`,
+  outline: `none`,
+  textOverflow: `ellipses`,
+};
+
 
 const DrawingExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
+    ref={props.onMapMounted}
     defaultZoom={15}
-    defaultCenter={new google.maps.LatLng(40.114033, -88.224884)}
+    center={props.center}
+    onBoundsChanged={props.onBoundsChanged}
   >
     <DrawingManager
       defaultDrawingMode={google.maps.drawing.OverlayType.RECTANGLE}
@@ -25,6 +45,19 @@ const DrawingExampleGoogleMap = withGoogleMap(props => (
       }}  
         onRectangleComplete={props.onRectangleComplete}
     />
+
+    <SearchBox
+      ref={props.onSearchBoxMounted}
+      bounds={props.bounds}
+      controlPosition={google.maps.ControlPosition.TOP_LEFT}
+      onPlacesChanged={props.onPlacesChanged}
+      inputPlaceholder="Customized your placeholder"
+      inputStyle={INPUT_STYLE}
+    />
+    {props.markers.map((marker, index) => (
+      <Marker position={marker.position} key={index} />
+    ))}
+
   </GoogleMap>
 ));
 
@@ -32,7 +65,14 @@ class Test extends Component {
     constructor(props){
         super(props);
         this.state={
-               bounds:0,
+
+               bounds: null,
+               center: {
+                  lat: 47.6205588,
+                  lng: -122.3212725,
+                },
+               markers: [],
+
                coords:[],
             Triggerbylocations: JSON.parse(localStorage.getItem('Triggerbylocations')) || [],
             Triggerbytimes: JSON.parse(localStorage.getItem('Triggerbytimes')) || [],
@@ -65,8 +105,46 @@ class Test extends Component {
         this.handleOnEnterChecked = this.handleOnEnterChecked.bind(this); 
         this.handleOnExitChecked = this.handleOnExitChecked.bind(this); 
         this.handleRectangleComplete = this.handleRectangleComplete.bind(this); 
+        this.handleMapMounted = this.handleMapMounted.bind(this);
+        this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
+        this.handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
+        this.handlePlacesChanged = this.handlePlacesChanged.bind(this);
     }   
  
+
+ handleMapMounted(map) {
+    this._map = map;
+  }
+
+  handleBoundsChanged() {
+    this.setState({
+      bounds: this._map.getBounds(),
+      center: this._map.getCenter(),
+    });
+  }
+
+  handleSearchBoxMounted(searchBox) {
+    this._searchBox = searchBox;
+  }
+
+  handlePlacesChanged() {
+    const places = this._searchBox.getPlaces();
+
+    // Add a marker for each place returned from search bar
+    const markers = places.map(place => ({
+      position: place.geometry.location,
+    }));
+
+    // Set markers; set map center to first search result
+    const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
+
+    this.setState({
+      center: mapCenter,
+      markers,
+    });
+  }
+
+
     onMapCreated(map) {
     map.setOptions({
       disableDefaultUI: true
@@ -175,6 +253,13 @@ render(){
                         mapElement={
                             <div style={{ height: 500 }} />
                         }
+                        center={this.state.center}
+                        onMapMounted={this.handleMapMounted}
+                        onBoundsChanged={this.handleBoundsChanged}
+                        onSearchBoxMounted={this.handleSearchBoxMounted}
+                        bounds={this.state.bounds}
+                        onPlacesChanged={this.handlePlacesChanged}
+                        markers={this.state.markers}
                         onRectangleComplete = {this.handleRectangleComplete}
                     />
                     <form>
@@ -380,6 +465,3 @@ render(){
 
 
 export default Test;
-
-
-

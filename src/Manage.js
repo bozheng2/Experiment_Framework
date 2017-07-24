@@ -7,7 +7,7 @@ import createHistory from 'history/createBrowserHistory'
  const TrueFalseTasks =  JSON.parse(localStorage.getItem('TrueFalseTasks')) || [];
  const count1 = (TrueFalseTasks.length);
  const option_id1 = Array.from(Array(count1).keys());
- var selected1 = 0;
+ var selected1 = 0; 
 
  const MultipleChoiceTasks = JSON.parse(localStorage.getItem('MultipleChoiceTasks')) || [];
  const count2 = (MultipleChoiceTasks.length);
